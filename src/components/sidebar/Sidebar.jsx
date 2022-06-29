@@ -9,6 +9,8 @@ import { RssFeed ,
          Camera,
          Group
          } from '@material-ui/icons';
+import { Users } from '../../dumydata';
+import CloseFriend from '../closeFriend/CloseFriend';
 
 const Sidebar = () => {
     return(
@@ -55,18 +57,13 @@ const Sidebar = () => {
                <button className="sidebarButton">Show More</button>
                <hr className="sidebarHr"/>
                <ul className="sidbarFriendList">
-                   <li className="sidebarFriend">
-                       <img src="/assets/person/2.jpeg" alt="person" className="sidebarFriendImg" />
-                       <span className="sidebarFriendName">Raden AJeng Patah</span>
-                   </li>
-                   <li className="sidebarFriend">
-                       <img src="/assets/person/2.jpeg" alt="person" className="sidebarFriendImg" />
-                       <span className="sidebarFriendName">Rika Aulia</span>
-                   </li>
-                   <li className="sidebarFriend">
-                       <img src="/assets/person/2.jpeg" alt="person" className="sidebarFriendImg" />
-                       <span className="sidebarFriendName">Nanang Santoso</span>
-                   </li>
+                  {
+                      Users.map((data , index) => {
+                          return(
+                              <CloseFriend key={index} user={data}/>
+                          )
+                      })
+                  }
                </ul>
            </div>
         </div>
