@@ -2,7 +2,7 @@ import './rigthbar.css';
 import {Users} from '../../dumydata';
 import Online from '../online/Online';
 
-const Rigthbar = ({profile}) => {
+const Rigthbar = ({user}) => {
     
     const HomeRightBar = () => {
         return(
@@ -33,15 +33,15 @@ const Rigthbar = ({profile}) => {
             <div className="rightBarInfo">
                 <div className="rightBarInfoItem">
                     <span className="rightBarInfoKey">City :</span>
-                    <span className="rightBarInfoValue">New York</span>
+                    <span className="rightBarInfoValue">{user.city}</span>
                 </div>
                 <div className="rightBarInfoItem">
                     <span className="rightBarInfoKey">From :</span>
-                    <span className="rightBarInfoValue">Madrid</span>
+                    <span className="rightBarInfoValue">{user.from}</span>
                 </div>
                 <div className="rightBarInfoItem">
                     <span className="rightBarInfoKey">Relationship :</span>
-                    <span className="rightBarInfoValue">single</span>
+                    <span className="rightBarInfoValue">{user.relationship}</span>
                 </div>
             </div>
             <h4 className="rightBarTitle">User Friends</h4>
@@ -66,7 +66,7 @@ const Rigthbar = ({profile}) => {
     return(
         <div className="rigthbar">
             <div className="rightbarWrapper">
-               {profile?<ProfileRightBar/>:<HomeRightBar/>}               
+               {user?<ProfileRightBar/>:<HomeRightBar/>}               
             </div>
         </div>
     )

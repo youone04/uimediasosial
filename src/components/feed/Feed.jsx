@@ -1,22 +1,23 @@
 import Post from '../post/Post';
 import Share from '../share/Share';
 import './feed.css';
-import { Posts} from '../../dumydata';
+// import { Posts} from '../../dumydata';
 import { useState , useEffect } from 'react';
 import axios from 'axios';
 
-const Feed = () => {
+const Feed = ({username}) => {
     const [post , setPost] = useState([]);
-    const[text, setText] = useState([]);
 
     useEffect(() => {
        getTimeLine();
 
-    },[])
+    },[username]);
+
+    console.log(post)
 
     const getTimeLine = async() => {
       try{
-        const response =  await axios.get(`/post/timeline/62bc4dccbfbd4d2f45e1f097`);
+        const response = username? await axios.get(`/post/profile/${username}`) : await axios.get(`/post/timeline/62bc4dccbfbd4d2f45e1f097`);
         setPost(response.data)
         // console.log(response)
       }catch(error){
@@ -29,10 +30,10 @@ const Feed = () => {
             <div className="feedWrapper">
                 <Share/>
                {
-                   post.map((data,index) => {
+                   post.length > 0 ?post.map((data,index) => {
                        
                     return <Post post={data} key={index}/>
-                   })
+                   }):''
                }
             </div>
         </div>
