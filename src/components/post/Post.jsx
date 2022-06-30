@@ -1,12 +1,15 @@
 import './post.css';
 import { MoreVert } from '@material-ui/icons';
-import { Users } from '../../dumydata';
-import { useState } from 'react';
+// import { Users } from '../../dumydata';
+import { useState , useEffect } from 'react';
+import axios from 'axios';
+import {format} from 'timeago.js';
 
 
 const Post = ({post}) => {
-    const [like , setLike] = useState(post.like);
+    const [like , setLike] = useState(post.likes.length);
     const [isLiked , setIsLiked] = useState(false);
+    const [user , setUser] = useState({});
 
     const likeHandler = () => {
 
@@ -14,19 +17,35 @@ const Post = ({post}) => {
         setIsLiked(!isLiked);
     }
 
+    useEffect(() => {
+        getUser();
+ 
+     },[post.userId])
+ 
+     const getUser = async() => {
+       try{
+         const response =  await axios.get(`/users/${post.userId}`);
+         setUser(response.data)
+         // console.log(response)
+       }catch(error){
+         console.log(error)
+       }
+     }
+
+    //  console.log(user.data.userName)
     return(
         <div className="post">
             <div className="postWrapper">
                 <div className="postTop">
                     <div className="postToptLeft">
-                        <img className="postProfileImg" src={ Users.filter(u => u.id === post.userId)[0].profilePicture} alt="person" />
+                        <img className="postProfileImg" src={user?.data?.profilePicture || "/assets/person/no_avatar.png" } alt="person" />
                         <span className="postUsername">
                             {
-                                Users.filter(u => u.id === post.userId)[0].username
+                               user?.data?.userName
                             }
                         </span>
                         <span className="postDate">
-                         {post.date}
+                         {format(post?.createdAt)}
                         </span>
                     </div>
                     <div className="postTopRight">
@@ -35,7 +54,7 @@ const Post = ({post}) => {
                 </div>
                 <div className="postCenter">
                     <span className="postText">{post?.desc}</span>
-                    <img className="postImg" src={post.photo} alt="" />
+                    <img className="postImg" src={post?.img} alt="" />
                 </div>
                 <div className="postBottom">
                     <div className="potBottomLeft">
