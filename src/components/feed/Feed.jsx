@@ -4,20 +4,23 @@ import './feed.css';
 // import { Posts} from '../../dumydata';
 import { useState , useEffect } from 'react';
 import axios from 'axios';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 const Feed = ({username}) => {
     const [post , setPost] = useState([]);
+    const {user} = useContext(AuthContext);
 
     useEffect(() => {
        getTimeLine();
 
-    },[username]);
+    },[username,user._id]);
 
-    console.log(post)
+    // console.log(post)
 
     const getTimeLine = async() => {
       try{
-        const response = username? await axios.get(`/post/profile/${username}`) : await axios.get(`/post/timeline/62bc4dccbfbd4d2f45e1f097`);
+        const response = username? await axios.get(`/post/profile/${username}`) : await axios.get(`/post/timeline/${user._id}`);
         setPost(response.data)
         // console.log(response)
       }catch(error){

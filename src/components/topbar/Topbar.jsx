@@ -5,12 +5,13 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 const Topbar = () => {
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  // console.log(user)
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-        <Link to={"/"} style={{textDecoration:'none'}}>
+        <Link to={"/"} style={{ textDecoration: "none" }}>
           <span className="logo">CawaApps</span>
         </Link>
       </div>
@@ -43,7 +44,17 @@ const Topbar = () => {
             <span className="topbarIconBadge">1</span>
           </div>
         </div>
-        <img src={user.profilePicture?user.profilePicture :"/assets/person/no_avatar.png"} alt="" className="topbarImage" />
+        <Link to={`/profile/${user.userName}`}>
+          <img
+            src={
+              user.profilePicture
+                ? user.profilePicture
+                : "/assets/person/no_avatar.png"
+            }
+            alt=""
+            className="topbarImage"
+          />
+        </Link>
       </div>
     </div>
   );

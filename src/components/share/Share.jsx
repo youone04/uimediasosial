@@ -5,22 +5,31 @@ import {
     Room,
     EmojiEmotions
 } from '@material-ui/icons';
+import { useContext , useRef, useState } from 'react';
+import { AuthContext } from "../../context/AuthContext"
 
 const Share = () => {
+    const{user} = useContext(AuthContext);
+    const desc = useRef();
+    const[file , setFile] = useState(null)
+
+    console.log(user)
+
     return(
         <div className="share">
             <div className="shareWrapper">
                 <div className="shareTop">
-                    <img className="shareProfileImg" src="/assets/person/1.jpeg" alt="person" />
-                    <input placeholder="What's in your main CawaApps" type="text" name="text" id="text" className="shareInput" />
+                    <img className="shareProfileImg" src={user.profilePicture?user.profilePicture :"/assets/person/no_avatar.png"} alt="person" />
+                    <input ref={desc} placeholder={`What's in your mind ${user.userName}?`} type="text" name="text" id="text" className="shareInput" />
                 </div>
                 <hr className="shareHr"/>
-                <div className="shareBottom">
+                <form className="shareBottom" onSubmit={() => {}}>
                     <div className="shareOptions">
-                        <div className="shareOption">
+                        <label htmlFor='file' className="shareOption">
                             <PermMedia htmlColor="tomato" className="shareIcon" />
                             <span className="shareOptionText">Photo or Video</span>
-                        </div>
+                            <input style={{display:'none'}} type='file' id="file" accept='.png , .jpeg , .jpg' onChange={(e) => setFile(e.target.files[0])}/>
+                        </label>
                         <div className="shareOption">
                             <Label htmlColor="blue" className="shareIcon" />
                             <span className="shareOptionText">Tag</span>
@@ -35,7 +44,7 @@ const Share = () => {
                         </div>
                     </div>
                     <button className="shareButton">Share</button>
-                </div>
+                </form>
             </div>
         </div>
         

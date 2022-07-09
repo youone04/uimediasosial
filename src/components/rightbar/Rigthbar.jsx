@@ -3,7 +3,7 @@ import {Users} from '../../dumydata';
 import Online from '../online/Online';
 
 const Rigthbar = ({user}) => {
-    
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const HomeRightBar = () => {
         return(
             <>
@@ -47,15 +47,15 @@ const Rigthbar = ({user}) => {
             <h4 className="rightBarTitle">User Friends</h4>
             <div className="rightBarFollowings">
                 <div className="rightbarFollowing">
-                    <img src="assets/person/1.jpeg" alt="" className="rightBarFollowingImg" />
+                    <img src={PF+"/person/1.jpeg"} alt="" className="rightBarFollowingImg" />
                     <span className="rightBarFollowingName">John Carter</span>
                 </div>
                 <div className="rightbarFollowing">
-                    <img src="assets/person/2.jpeg" alt="" className="rightBarFollowingImg" />
+                    <img src={PF+"/person/2.jpeg"} alt="" className="rightBarFollowingImg" />
                     <span className="rightBarFollowingName">John Carter</span>
                 </div>
                 <div className="rightbarFollowing">
-                    <img src="assets/person/3.jpeg" alt="" className="rightBarFollowingImg" />
+                    <img src={PF+"/person/3.jpeg"} alt="" className="rightBarFollowingImg" />
                     <span className="rightBarFollowingName">John Carter</span>
                 </div>
             </div>

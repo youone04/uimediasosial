@@ -5,16 +5,29 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { format } from "timeago.js";
 import {Link} from 'react-router-dom';
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const Post = ({ post }) => {
   const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
+  const {user:currentUser} = useContext(AuthContext);
 
-  const likeHandler = () => {
+  const likeHandler = async() => {
+    try{
+      await axios.put(`/post/${post._id}/like`,{userId: currentUser._id});
+
+    }catch(error){
+
+    }
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
   };
+
+  useEffect(() => {
+    setIsLiked(post.likes.includes(currentUser._id))
+  },[currentUser._id, post.likes])
 
   useEffect(() => {
     getUser();
@@ -30,7 +43,6 @@ const Post = ({ post }) => {
     }
   };
 
-  //  console.log(user.data.userName)
   return (
     <div className="post">
       <div className="postWrapper">

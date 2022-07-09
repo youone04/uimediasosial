@@ -20,7 +20,7 @@ const Register = () => {
         email: email.current.value,
         password: password.current.value,
       };
-      console.log(user)
+      // console.log(user)
       try {
         await axios.post("/auth/register", user);
         navigate('/login')

@@ -2,4 +2,4 @@ youtube : https://www.youtube.com/watch?v=zM93yZ_8SvE&t=364s
 time : 02:018:14 (done)
 
 https://www.youtube.com/watch?v=pFHyZvVxce0&list=PLj-4DlPRT48lXaz5YLvbLC38m25W9Kmqy&index=3
-time : 01:45:14
+time : 02:00:56
