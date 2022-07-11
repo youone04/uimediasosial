@@ -13,7 +13,7 @@ const Post = ({ post }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
   const {user:currentUser} = useContext(AuthContext);
-
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const likeHandler = async() => {
     try{
       await axios.put(`/post/${post._id}/like`,{userId: currentUser._id});
@@ -35,9 +35,9 @@ const Post = ({ post }) => {
 
   const getUser = async () => {
     try {
-      const response = await axios.get(`/users/user?userId=${post.userId}`);
+      const response = await axios.get(`users/user?userId=${post.userId}`);
       setUser(response.data);
-      // console.log(response.data)
+      console.log(response.data)
     } catch (error) {
       console.log(error);
     }
@@ -66,7 +66,7 @@ const Post = ({ post }) => {
         </div>
         <div className="postCenter">
           <span className="postText">{post?.desc}</span>
-          <img className="postImg" src={post?.img} alt="" />
+          <img className="postImg" src={`${PF}/${post?.img}`} alt="" />
         </div>
         <div className="postBottom">
           <div className="potBottomLeft">

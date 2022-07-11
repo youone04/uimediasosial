@@ -21,7 +21,9 @@ const Feed = ({username}) => {
     const getTimeLine = async() => {
       try{
         const response = username? await axios.get(`/post/profile/${username}`) : await axios.get(`/post/timeline/${user._id}`);
-        setPost(response.data)
+        setPost(response.data.sort((p1, p2) => {
+          return new Date(p2.createdAt) - new Date(p1.createdAt)
+        }))
         // console.log(response)
       }catch(error){
         console.log(error)

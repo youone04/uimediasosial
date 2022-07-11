@@ -7,6 +7,7 @@ import {
 } from '@material-ui/icons';
 import { useContext , useRef, useState } from 'react';
 import { AuthContext } from "../../context/AuthContext"
+import axios from "axios";
 
 const Share = () => {
     const{user} = useContext(AuthContext);
@@ -14,6 +15,36 @@ const Share = () => {
     const[file , setFile] = useState(null)
 
     console.log(user)
+
+    const submitHandler = async (e) => {
+        e.preventDefault();
+        const newPost = {
+            userId : user._id,
+            desc: desc.current.value
+        }
+
+        if(file){
+            const data = new FormData();
+            const fileName = file.name;
+            data.append("file" , file);
+            data.append("name", fileName);
+            newPost.img = fileName;
+            try{
+
+                await axios.post("/upload", data);
+
+            }catch(error){
+                console.log(error)
+            }
+        }
+        try{
+
+           await axios.post(`post`, newPost);
+           window.location.reload();
+        }catch(error){
+
+        }
+    }
 
     return(
         <div className="share">
@@ -23,7 +54,7 @@ const Share = () => {
                     <input ref={desc} placeholder={`What's in your mind ${user.userName}?`} type="text" name="text" id="text" className="shareInput" />
                 </div>
                 <hr className="shareHr"/>
-                <form className="shareBottom" onSubmit={() => {}}>
+                <form className="shareBottom" onSubmit={submitHandler}>
                     <div className="shareOptions">
                         <label htmlFor='file' className="shareOption">
                             <PermMedia htmlColor="tomato" className="shareIcon" />
@@ -43,7 +74,7 @@ const Share = () => {
                             <span className="shareOptionText">Feelings</span>
                         </div>
                     </div>
-                    <button className="shareButton">Share</button>
+                    <button className="shareButton" type="submit">Share</button>
                 </form>
             </div>
         </div>
