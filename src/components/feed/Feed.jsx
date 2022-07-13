@@ -30,10 +30,11 @@ const Feed = ({username}) => {
       }
     }
 
+
     return(
         <div className="feed">
             <div className="feedWrapper">
-                <Share/>
+               { username? username === user.userName ?  <Share/>:'':<Share/>} 
                {
                    post.length > 0 ?post.map((data,index) => {
                        

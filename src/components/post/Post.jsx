@@ -35,13 +35,15 @@ const Post = ({ post }) => {
 
   const getUser = async () => {
     try {
-      const response = await axios.get(`users/user?userId=${post.userId}`);
+      const response = await axios.get(`/users/user?userId=${post.userId}`);
       setUser(response.data);
       console.log(response.data)
     } catch (error) {
       console.log(error);
     }
   };
+
+  console.log(post)
 
   return (
     <div className="post">
@@ -52,7 +54,7 @@ const Post = ({ post }) => {
               <img
                 className="postProfileImg"
                 src={
-                  user?.data?.profilePicture || "/assets/person/no_avatar.png"
+                  `${PF}/person/${user?.data?.profilePicture }`|| "/assets/person/no_avatar.png"
                 }
                 alt="person"
               />

@@ -3,11 +3,10 @@ import AuthReducer from "./AuthReducers";
 const INITIAL_STATE = {
   user: {
     _id: "62bc4dccbfbd4d2f45e1f097",
-    profilePicture:
-      "https://koms.korloy.com/resource/lib/ace-admin/assets/avatars/profile-pic.jpg",
+    profilePicture:"avatar1.jpg",
     coverPicture: "",
     followers: [],
-    followings: [],
+    followings: [1,2],
     isAdmin: false,
     userName: "yudi",
   },

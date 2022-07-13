@@ -12,14 +12,14 @@ import { useParams } from 'react-router-dom';
 const Profile = () => {
     const [user, setUser] = useState({});
     const params = useParams();
-
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     useEffect(() => {
         getUser();
       }, []);
     
       const getUser = async () => {
         try {
-          const response = await axios.get(`/users/user?username=yudi`);
+          const response = await axios.get(`/users/user?username=${params?.username}`);
           setUser(response.data);
         //   console.log(response.data)
         } catch (error) {
@@ -36,8 +36,8 @@ const Profile = () => {
                 <div className="profileRight">
                     <div className="profileRightTop">
                         <div className="profileCover">
-                            <img className="profileCoverImg" src={user?.data?.coverPicture || "https://tokystorage.s3.amazonaws.com/images/default-cover.png"} alt="top" />
-                            <img className="profileUserImg" src={user?.data?.profilePicture || "https://www.seekpng.com/png/full/514-5147412_default-avatar-icon.png"} alt="top" />
+                            <img className="profileCoverImg" src={`${PF}/cover/${user?.data?.coverPicture}` || "https://tokystorage.s3.amazonaws.com/images/default-cover.png"} alt="top" />
+                            <img className="profileUserImg" src={`${PF}/person/${user?.data?.profilePicture}` || "https://www.seekpng.com/png/full/514-5147412_default-avatar-icon.png"} alt="top" />
                         </div>
                         <div className="profileInfo">
                         <h2 className="profilInfoName">{user?.data?.userName}</h2>
